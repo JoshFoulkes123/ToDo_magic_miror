@@ -393,7 +393,7 @@ function open_details(){
     focused_task = tasks.filter((x) => x.name == task_name)[0];
     console.log(focused_task);
     // window.open(`task_edit.html?id=${focused_task.id}`, "_self");
-    window.open("{{ url_for('task_edit') }}?id=" + focused_task.id, "_self");
+    window.open("{{url_for('task_edit')}", "_self");
 }
 
 if (Task_all_display){
