@@ -3,7 +3,7 @@ console.log("hello from mirror js")
 
 
 async function loadTasks(command) {
-  const response = await fetch(`http://192.168.0.98:5000${command}`);
+  const response = await fetch(`${command}`);
   const data = await response.json();
   console.log("received data")
   tasks = data;
@@ -12,12 +12,15 @@ async function loadTasks(command) {
   updateUrgency();
 
   set_dashboard_tasks();
- 
+  
+
+
+  
 }
 
 
 async function getWeather() {
-    const response = await fetch(`http://192.168.0.98:5000/weather`);
+    const response = await fetch(`/weather`);
     const data = await response.json();
     console.log("received data")
     console.log(data);

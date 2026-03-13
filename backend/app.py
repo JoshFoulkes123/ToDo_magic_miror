@@ -63,13 +63,14 @@ weather_codes = {
     99: {"description": "Thunderstorm With Hail", "image": "http://openweathermap.org/img/wn/11d@2x.png"},
 }
 
-tasks= [
-    (0,"clean toilet","clean toilet description",datetime.datetime(2026, 2, 13),3),
-    (1,"clean sheets","clean sheets description",datetime.datetime(2026, 2, 16),2),
-    (2,"take out recycling","take out recycling description",datetime.datetime(2026, 3, 1),1),
-    (3,"clean fridge","clean fridge and freezer description",datetime.datetime(2026, 2, 20),4),
-    (4,"Clean Oven","clean oven description",datetime.datetime(2026, 12, 12),8)
-]
+# tasks= [
+#     (0,"clean toilet","clean toilet description",datetime.datetime(2026, 2, 13),3),
+#     (1,"clean sheets","clean sheets description",datetime.datetime(2026, 2, 16),2),
+#     (2,"take out recycling","take out recycling description",datetime.datetime(2026, 3, 1),1),
+#     (3,"clean fridge","clean fridge and freezer description",datetime.datetime(2026, 2, 20),4),
+#     (4,"Clean Oven","clean oven description",datetime.datetime(2026, 12, 12),8)
+# ]
+tasks = []
 
 Api_url = "https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&daily=temperature_2m_max,temperature_2m_min,sunset,rain_sum,showers_sum,precipitation_sum,precipitation_probability_max,weather_code"
 
@@ -81,6 +82,30 @@ def updateWeather():
     global weather_return
     weather_return = r.json()
 
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+@app.route('/settings')
+def settings():
+    return render_template('settings.html')
+
+@app.route('/all_tasks')
+def all_tasks():
+    return render_template('all_tasks.html')
+
+@app.route('/mirror_dashboard')
+def mirror_dashboard():
+    return render_template('mirror_dashboard.html')
+
+@app.route('/task_add')
+def task_add():
+    return render_template('task_add.html')
+
+@app.route('/task_edit')
+def task_edit():
+    return render_template('task_edit.html')
 
 @app.route('/weather', methods=['GET'])
 def getWeather():
@@ -125,6 +150,7 @@ def test():
 
 @app.route('/Task_table', methods=['POST'])
 def add_user():
+    global tasks
     data = request.json
     task_name = data['name']
     task_desc = data['task_desc']
@@ -133,10 +159,12 @@ def add_user():
     print(type(last_completed))
     print("user added with data: "+str(task_name)+"; "+str(task_desc)+"; "+str(repeat_weeks)+"; "+str(last_completed)+"; ")
     cur = mysql.connection.cursor()
-    # cur.execute("INSERT INTO Task_table (task_name, task_desc, last_completed, repeat_weeks) VALUES (%s, %s, %s , %s)", (task_name, task_desc, last_completed, repeat_weeks))
-    # mysql.connection.commit()
-    new_id = max(tasks)[0]+1
-    tasks.append((new_id,task_name,task_desc,last_completed,repeat_weeks))
+    cur.execute("INSERT INTO Task_table (task_name, task_desc, last_completed, repeat_weeks) VALUES (%s, %s, %s , %s)", (task_name, task_desc, last_completed, repeat_weeks))
+    mysql.connection.commit()
+
+    print(mysql.connection.rowcount, "record inserted.")
+    # new_id = max(tasks)[0]+1
+    # tasks.append((new_id,task_name,task_desc,last_completed,repeat_weeks))
     print(tasks)
     return jsonify({'message': 'User added successfully'}), 201
 
@@ -144,9 +172,9 @@ def add_user():
 @app.route('/Task_table', methods=['GET'])
 def get_users():
     cur = mysql.connection.cursor()
-    
-    # cur.execute("SELECT * FROM Task_table")
-    # users = cur.fetchall()
+    global tasks
+    cur.execute("SELECT * FROM Task_table")
+    tasks = cur.fetchall()
     results = []
     for user in tasks:
         results.append({'id': user[0], 'name': user[1], 'task_desc': user[2], 'last_completed': user[3], 'repeat': user[4]})
@@ -157,20 +185,23 @@ def get_users():
 @app.route('/Task_table/<int:id>', methods=['PUT'])
 def update_user(id):
     data = request.json
+    task_name = data['name']
+    task_desc = data['task_desc']
+    repeat_weeks = data['repeat']
+    last_completed = datetime.datetime.fromisoformat(data['last_completed'])
     cur = mysql.connection.cursor()
-    # cur.execute("UPDATE Task_table SET task_name=%s, task_desc=%s, last_completed=%s, repeat_weeks=%s WHERE id=%s", 
-                # (data['task_name'], data['task_desc'], data['last_completed'], data['repeat_weeks'], id))
-    # mysql.connection.commit()
+    cur.execute("UPDATE Task_table SET task_name=%s, task_desc=%s, last_completed=%s, repeat_weeks=%s WHERE id_task=%s", (task_name, task_desc, last_completed, repeat_weeks, str(id)))
+    mysql.connection.commit()
     print("user updated with id: "+str(id))
-    task_idx = 0
-    for idx,task in enumerate(tasks):
-        if task[0] == id:
+    # task_idx = 0
+    # for idx,task in enumerate(tasks):
+    #     if task[0] == id:
 
-            task_idx = idx
-    print(tasks[task_idx][1])
-    tasks.pop(task_idx)
-    new_task = (id, data["name"], data["task_desc"], datetime.datetime.fromisoformat(data['last_completed']), data["repeat"])
-    tasks.append(new_task)
+    #         task_idx = idx
+    # print(tasks[task_idx][1])
+    # tasks.pop(task_idx)
+    # new_task = (id, data["name"], data["task_desc"], datetime.datetime.fromisoformat(data['last_completed']), data["repeat"])
+    # tasks.append(new_task)
 
     print(tasks)
     return jsonify({'message': 'User updated'})
@@ -178,35 +209,37 @@ def update_user(id):
 @app.route('/Task_table/<int:id>', methods=['DELETE'])
 def delete_user(id):
     cur = mysql.connection.cursor()
-    # cur.execute("DELETE FROM Task_table WHERE id = %s", (id,))
-    # mysql.connection.commit()
-    print("user id to deltete: "+str(id))
-    task_idx = 0
-    for idx,task in enumerate(tasks):
-        if task[0] == id:
 
-            task_idx = idx
-    tasks.pop(task_idx)
-    print(tasks)
+    print("user id to deltete: "+str(id))
+    # task_idx = 0
+    # for idx,task in enumerate(tasks):
+    #     if task[0] == id:
+
+    #         task_idx = idx
+
+    cur.execute("DELETE FROM Task_table WHERE id_task = %s", (str(id)))
+    mysql.connection.commit()
     print("task deleted with id: "+str(id))
     return jsonify({'message': 'User deleted'})
 
 @app.route('/Task_table/<int:id>', methods=['PATCH'])
 def edit_user(id):
     cur = mysql.connection.cursor()
-    # cur.execute("DELETE FROM Task_table WHERE id = %s", (id,))
-    # mysql.connection.commit()
+
     data = request.json
     print("Task completed with id: "+str(id))
-    task_idx = 0
-    for idx,task in enumerate(tasks):
-        if task[0] == id:
+    last_completed = datetime.datetime.fromisoformat(data['last_completed'])
+    cur.execute("UPDATE Task_table SET last_completed=%s WHERE id_task=%s", (last_completed, str(id)))
+    mysql.connection.commit()
+    # task_idx = 0
+    # for idx,task in enumerate(tasks):
+    #     if task[0] == id:
 
-            task_idx = idx    
-    old_task = tasks.pop(task_idx)
-    new_task = (id, old_task[1], old_task[2], datetime.datetime.fromisoformat(data['last_completed']),old_task[4])
-    tasks.append(new_task)
-    print(tasks)
+    #         task_idx = idx    
+    # old_task = tasks.pop(task_idx)
+    # new_task = (id, old_task[1], old_task[2], datetime.datetime.fromisoformat(data['last_completed']),old_task[4])
+    # tasks.append(new_task)
+    # print(tasks)
     return jsonify({'message': 'task completed'})
 
 @app.errorhandler(404)

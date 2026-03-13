@@ -1,0 +1,38 @@
+<hmtl>
+    <head>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+        
+        <title>Todo list, all tasks page</title>
+    </head>
+    <body>
+        <h1>All Tasks</h1>
+        <hr>
+        <div>
+            <button id="Dashboard_link" onclick="location.href=`{{ url_for('index') }}`">Dashboard</button>
+            <button id="New_task_link" onclick="location.href=`{{ url_for('task_add') }}`">New Task</button>
+            <button id="Settings_link" onclick="location.href=`{{ url_for('settings') }}`">Settings</button>
+        </div>
+        <hr>
+        <br>
+        <label for="task_filter">Filter: </label>
+        <select name="task_filter" id ="task_filder_dropdown">
+            <option value="Name">Name</option>
+            <option value="Date">Date</option>
+            <option value="Urgency">Urgency</option>
+            <option value="Id">Id</option>
+        </select>
+        
+        <div id="task_display_all">
+            <div class="task_display_">
+                <h3>Clean Fridge</h3>
+                <p>Last Completed: <date>22/02/26</date> <p>
+                <p>Repeats: every 4 week<p>
+                <p>Urgency: Low<p>
+                <button class="detailed_link" onclick="location.href=''">See Details</button>
+                <button class="Settings_link" onclick="location.href=''">Complete</button>
+            </div>
+        </div>
+        <script src="{{ url_for('static', filename='script.js') }}"></script>
+    </body>
+    
+</hmtl>
