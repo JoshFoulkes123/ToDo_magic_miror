@@ -1,0 +1,40 @@
+<hmtl>
+    <head>
+        <link rel="stylesheet" href="style.css">
+        
+        <title>Todo list, add task</title>
+    </head>
+    <body id="new_task_page">
+        <h1>New task</h1>
+        <div>
+            <button id="Dashboard_link" onclick="location.href='index.html'">Dashboard</button>
+        </div>
+        <hr>
+        <form >
+            <label for="new_task_name">New Task Name: </label>
+            <input required type="text" id="new_task_name" name="tname"><br><br>
+            <label for="new_task_desc">New Task Description:</label><br>
+            <textarea required id="new_task_desc" name="tdesc" rows="6" cols="80">
+            </textarea><br><br>
+            <label for="Date input">Start Date: </label>
+            <div id = "date_input">
+                <input type="checkbox" id="task_today" name="task_today" value="task_today">
+                <label for="task_today"> Start task today</label>
+                <label for="task_start">or Task start:</label>
+                <input type="date" id="task_start" name="task_start">
+            </div><br><br>
+            <label for="task_repeat">How many weeks between:</label>
+            <input required type="number" id="task_repeat" name="task_repeat" min="1" max="100">
+
+        </form>
+        <br><br>
+        <hr>
+        <div>
+            <p id="isSuccess"></p>
+            <button id="submit_new_task" >Submit</button>
+            <button id="cancel_new_task" >Cancel</button>
+        </div>
+        <script src="script.js"></script>
+    </body>
+    
+</hmtl>

@@ -1,0 +1,37 @@
+<hmtl>
+    <head>
+        <link rel="stylesheet" href="style.css">
+        
+        <title>Todo list, edit task</title>
+    </head>
+    <body id="edit_task_page">
+        <h1>Edit task</h1>
+        <div>
+            <button id="Dashboard_link" onclick="location.href='index.html'">Dashboard</button>
+            <button id="Task_view_link" onclick="location.href='all_tasks.html'">All Tasks</button>        </div>
+        <hr>
+        <form id="task_display_detailed">
+
+            <label for="task_name">Task Name: </label>
+            <input required type="text" id="task_name" name="tname" value="Clean sheets"><br><br>
+            <label for="task_desc" >Task Description:</label><br>
+            <textarea required id="task_desc" name="tdesc" autocomplete="off" rows="6" cols="80">Clean Sheets with washing machine</textarea>
+            <br><br>
+            <label for="task_start">Task start:</label>
+            <input type="date" id="task_start" value="1970-01-01" name="task_start">
+            <br><br>
+            <label for="task_repeat">How many weeks between:</label>
+            <input required type="number" id="task_repeat" name="task_repeat" value ="3" min="1" max="100">
+
+        </form>
+        <br><br>
+        <hr>
+        <div>
+            <p id="isSuccess"></p>
+            <button id="submit_task_changes" >Submit changes</button>
+            <button id="cancel_task_changes" >Cancel</button>
+        </div>
+        <script src="script.js"></script>
+    </body>
+    
+</hmtl>

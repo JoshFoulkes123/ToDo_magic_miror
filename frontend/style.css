@@ -1,0 +1,15 @@
+body {
+
+    font-family: Arial;
+    padding-left: 6%;
+
+}
+
+#task_display{
+    padding-left: 10%;
+}
+
+.header{
+    font-size: 25px;
+}
+

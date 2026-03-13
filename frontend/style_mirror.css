@@ -1,0 +1,117 @@
+body {
+    color: white;
+    background-color: black;
+    font-family: Arial;
+    padding-left: 0%;
+    padding-top: 0%;
+}
+
+html, body {
+    margin: 0; 
+    height: 100%; 
+    overflow: hidden;
+}
+
+#page_title{ 
+    color: black;
+    text-decoration: none;
+    font-size: 25;
+    margin-bottom: 0;
+    padding: 0%;
+
+}
+
+#page_title h1{
+    margin: 0px;
+    padding: 0%;
+    
+}
+
+#weather_display {
+    text-align: right;
+    padding-right: 3%;
+}
+
+#clock_display{
+    padding-left: 8%;
+}
+
+#weather_display p {
+    margin: 0;          /* removes spacing between p lines */
+}
+
+#weather_display > div {
+    margin-bottom: 20px; /* keeps spacing between the weather divs */
+}
+
+.task_items{
+    margin-bottom: 15px;
+}
+
+.task_items p{
+    margin: 0;
+}
+
+.task_items h3{
+    margin: 4px;
+}
+
+#sat_weather{
+    padding: 0;
+    margin: 0;
+}
+
+#sun_weather{
+    padding: 0;
+    margin: 0;
+}
+
+#clock_display{
+    font-size: 50;
+}
+
+#task_display > div {
+    margin-bottom: 10px;
+}
+
+#task_display p h3 {
+    margin: 0;
+}
+
+h2{
+    padding-bottom: 0;
+    padding-top: 0;
+    margin-bottom: 3%;
+    margin-top: 3%;
+    padding-right: 0%;
+}
+
+
+#main_body {
+  display: flex;
+  padding-left: 0%;
+  margin: 0%;
+  padding-top: 0%;
+
+}
+
+#task_display{
+    width: 25%;
+}
+
+#main_body > div {
+
+  margin: 0px;
+  padding: 0px;
+  padding-right: 4%;
+  padding-left: 4%;
+
+}
+
+#middle_spacer{
+    flex-grow: 1;
+}
+
+#weather_display {
+    align-items: end;
+}

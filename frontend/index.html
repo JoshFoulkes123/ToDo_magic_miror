@@ -1,0 +1,76 @@
+<hmtl>
+    <head>
+        <link rel="stylesheet" href="style.css">
+        
+        <title>Todo list, Dashboard</title>
+    </head>
+    <body>
+        <h1>Dashboard</h1>
+        <hr>
+        
+        <div id="header">
+            <button id="New_task_link" onclick="location.href='task_add.html'">New Task</button>
+            <button id="Task_view_link" onclick="location.href='all_tasks.html'">All Tasks</button>
+            <button id="Settings_link" onclick="location.href='settings.html'">Settings</button>
+        </div>
+        
+
+
+        <div id ="late_task_dashboard">
+            <hr>
+            <h2>Late Tasks</h2>
+                <div class="late task_display">
+                    <h3>Clean Toilet</h3>
+                    <p>Last Completed: <span class="date_last_completed">15/01/26</span> <p>
+                    <p>Repeats: <span class = "date_repeat">every 4 week</span><p>
+                    <p>Urgency: <span>High</span><p>
+                    <button id="Settings_link" onclick="location.href=''">See Details</button>
+                    <button id="Settings_link" onclick="location.href=''">Complete</button>
+                </div>
+                <br>
+        </div>
+        <hr>
+        <div>
+        <h2>Today's tasks</h2>
+            <div id="today_task_dashboard">
+                <div class="daily task_display">
+                    <h3>Clean sheets</h3>
+                    <p>Last Completed: <date>21/02/26</date> <p>
+                    <p>Repeats: every 2 weeks<p>
+                    <p>Urgency: normal<p>
+                    <button id="Settings_link" onclick="location.href=''">See Details</button>
+                    <button id="Settings_link" onclick="location.href=''">Complete</button>
+                </div>
+                <br>
+                <div class="daily task_display">
+                    <h3>Take out recycling</h3>
+                    <p>Last Completed: <date>18/02/26</date> <p>
+                    <p>Repeats: every 1 week<p>
+                    <p>Urgency: normal<p>
+                    <button id="Settings_link" onclick="location.href=''">See Details</button>
+                    <button id="Settings_link" onclick="location.href=''">Complete</button>
+                </div>
+                <br>
+            </div>
+        </div>
+        <hr>
+        <div>
+        <h2>Upcoming tasks</h2>
+            <div id="upcoming_task_dashboard">
+                <div class="upcoming task_display">
+                    <h3>Clean Fridge</h3>
+                    <p>Last Completed: <date>22/02/26</date> <p>
+                    <p>Repeats: every 4 week<p>
+                    <p>Urgency: Low<p>
+                    <button id="Settings_link" onclick="location.href=''">See Details</button>
+                    <button id="Settings_link" onclick="location.href=''">Complete</button>
+                </div>
+                <br>
+            </div>
+        </div>
+
+
+        <script src="script.js"></script>
+    </body>
+    
+</hmtl>
