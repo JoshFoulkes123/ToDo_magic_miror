@@ -8,7 +8,7 @@ from config import *
 import datetime
 import requests
 import time
-
+from subprocess import call
 
 app = Flask(__name__)
 app.config['MYSQL_HOST'] = MYSQL_HOST
@@ -146,6 +146,13 @@ def test():
     print(data)
     print("test function ran")
     return jsonify({"connected_to": "white rabbit"})
+
+@app.route('/turn_off')
+def turn_off():
+    print("powering down")
+    # cur.close()
+    # call("sudo shutdown -h ", shell=True)
+    return jsonify({"power": "off"})
 
 
 @app.route('/Task_table', methods=['POST'])

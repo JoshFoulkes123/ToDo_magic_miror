@@ -10,6 +10,9 @@
             <button id="Dashboard_link" onclick="location.href=`{{ url_for('index') }}`">Dashboard</button>
             <button id="Mirror_dashboard_link" onclick="location.href=`{{ url_for('mirror_dashboard') }}`">Mirror Dashboard</button>
         </div>
+        <hr>
+            <h3>Turn off</h3>
+            <button id="turn_off_butt" onclick="Power_off()">turn off</button>
         <script src="{{ url_for('static', filename='script.js') }}"></script>
     </body>
     

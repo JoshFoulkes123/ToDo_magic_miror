@@ -171,6 +171,17 @@ let Edit_task_btn = document.getElementById("Task_view_link");
 
 let all_task_filter = document.getElementById("task_filder_dropdown");
 
+function Power_off(){
+
+    let out = confirm("Are you sure you you want to turn off mirror?");
+    if(out){
+
+        console.log("powering off confirmed")
+        const response = fetch(`/turn_off`)
+
+    }
+}
+
 
 function updateUrgency(){
     tasks.forEach((x) => {
